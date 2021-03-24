@@ -74,8 +74,18 @@ class DiscreteDistribution(dict):
         >>> empty
         {}
         """
-        "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        
+        #use total() to find the sum of all values
+        total = self.total()
+        
+        #if either their are zero values, or they sum to 0, does nothing
+        if total == 0:
+            return
+        
+        #divides each value by the sum of all the values
+        keys = self.keys()
+        for key in keys:
+            self[key] = self[key] /total
 
     def sample(self):
         """
@@ -98,8 +108,38 @@ class DiscreteDistribution(dict):
         >>> round(samples.count('d') * 1.0/N, 1)
         0.0
         """
-        "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        
+        #normalize if it hasn't already been
+        total = self.total()
+        if total != 1:
+            self.normalize()
+        all = sorted(self.items())
+
+        #make a list of the keys
+        keys = []
+        for x in all:
+            keys.append(x[0])
+            
+        #make a list of the values
+        values = []
+        for x in all:
+            values.append(x[1])
+            
+        #generate a random number between 0 and 1
+        rand = random.random()
+
+        #determine which key the value corresponds to by adding the values together until
+        #the total is greater than the random number
+            #for example, if there were 3 values, 0.4, 0.2 and 0.4 (in that order) if the random value
+            #was between 0 and 0.4 then it would be the first key, but if it was greater than 0.4 but less than 0.6
+            #it would be the second key and if it was greater than 0.6 it would be the third key
+        total = values[0]
+        current = 0
+        while total < rand:
+            current += 1               #increase index each iteration
+            total += values[current]   #add to the sum of the values checked so far
+
+        return keys[current]           #once the sum is greater than rand, return the corresponding key
 
 
 class InferenceModule:
@@ -168,8 +208,19 @@ class InferenceModule:
         """
         Return the probability P(noisyDistance | pacmanPosition, ghostPosition).
         """
-        "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        
+        #Check if ghost is in jail
+        if ghostPosition == jailPosition:
+            if noisyDistance == None:
+                return float(1)
+            return float(0)
+        if noisyDistance == None:
+            return float(0)
+
+        #determine the true distance using manhattanDistance
+        trueDistance = manhattanDistance(pacmanPosition, ghostPosition)
+        #use busters.getObservationProbability to get the observation probability
+        return busters.getObservationProbability(noisyDistance, trueDistance)
 
     def setGhostPosition(self, gameState, ghostPosition, index):
         """

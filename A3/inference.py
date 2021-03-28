@@ -347,14 +347,12 @@ class ExactInference(InferenceModule):
         """
         "*** YOUR CODE HERE ***"
         belief=self.beliefs.copy()
-        pacmanPosition=gameState.getPacmanPosition()
-        jailPosition=self.getJailPosition()
         #P(Ghost|newPosDist)=SUM{P(Ghost in current position)*P(Ghost in future position)}
         for p in self.allPositions:
-            if p != pacmanPosition:
-                newPosDist = self.getPositionDistribution(gameState, p)
-                for j in self.allPositions:
-                    self.beliefs[j]+=newPosDist[j]*belief[p]
-        self.beliefs.normalize()
+            self.beliefs[p]=0.0
+        for p in self.allPositions:
+            newPosDist = self.getPositionDistribution(gameState, p)
+            for j in self.allPositions:
+                self.beliefs[j]+=newPosDist[j]*belief[p]
     def getBeliefDistribution(self):
         return self.beliefs

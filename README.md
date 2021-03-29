@@ -11,5 +11,5 @@ Chloe : I implemented the normalize method and the sample method for question on
 Donghao: I implemented the elapseTime method and observeUpdate method in the Exactreference class,
 as my answer to question 3 and 4
 
-Maita: Q5 and final testing
+Maita: I implemented the chooseAction method in busterAgent.py for Question 5 and did the final testing on all the questions.
 

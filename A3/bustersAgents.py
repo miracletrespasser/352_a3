@@ -145,13 +145,13 @@ class GreedyBustersAgent(BustersAgent):
              if livingGhosts[i+1]]
         "*** YOUR CODE HERE ***"
         
-        "creates list of ghosts with highest position distributions"
+        #"creates list of ghosts with highest position distributions"
         uncapturedGhosts=[]        
         for ghosts in livingGhostPositionDistributions:
             uncapturedGhosts.append(ghosts.argMax())
    
 
-        "finds closest ghost from postion of uncaptured ghosts"
+        #"finds closest ghost from postion of uncaptured ghosts"
         closestGhostP= 1000000000# any huge number can be used here as it keeps updating with
                                  # smaller postions the ghosts have in relation to Pacman
         for ghost in uncapturedGhosts: 
@@ -159,7 +159,7 @@ class GreedyBustersAgent(BustersAgent):
                 closestGhostP = self.distancer.getDistance(pacmanPosition, ghost)
                 closestGhost=ghost
 
-        "returns action Pacman should take"
+        #"returns action Pacman should take"
         for actionTook in legal:
             
             successorPosition= Actions.getSuccessor(pacmanPosition, actionTook)

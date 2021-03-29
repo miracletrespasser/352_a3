@@ -358,5 +358,10 @@ class ExactInference(InferenceModule):
             #update probablilty on all positions
             for j in self.allPositions:
                 self.beliefs[j]+=newPosDist[j]*belief[p]
+         '''
+             In the third case, I observed that the color blocks near top are getting darker overtime
+             This is because the ghost keep wondering in the bottom levels that the program predict the
+             ghost is unlikely to move to the top levels.  
+         '''
     def getBeliefDistribution(self):
         return self.beliefs
